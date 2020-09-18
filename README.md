@@ -1,2 +1,2 @@
 # Avatar-Plugin-jarvis2
-Plagin Jarvis pour Avatar
+Plugin Jarvis pour Avatar
