@@ -58,13 +58,6 @@ exports.action = function(data, callback){
 				});
 			});
 		break;
-		case "mailrun":  // lance le mail
-			Avatar.runApp(__dirname + "/bin/mailrun", null, data.client, function(){
-				Avatar.speak(Config.modules.jarvis2.tts_action.mailrun, data.client, function(){
-					Avatar.Speech.end(data.client);
-				});
-			});
-		break;
 		case "mailclose":  // ferme le mail
 			Avatar.runApp(__dirname + "/nircmd/nircmdc64.exe killprocess OUTLOOK.EXE", null, data.client, function(){
 				Avatar.speak(Config.modules.jarvis2.tts_action.mailclose, data.client, function(){
@@ -128,13 +121,6 @@ exports.action = function(data, callback){
 				});
 			});
 		break;
-		case "avatarreboot":  // redémarre Avatar
-			Avatar.runApp(__dirname + "/bin/avatarreboot", null, data.client, function(){
-				Avatar.speak(Config.modules.jarvis2.tts_action.avatarreboot, data.client, function(){
-					Avatar.Speech.end(data.client);
-				});
-			});
-		break;
 		case "clavierrun":  // ouvre le clavier virtuel /nircmdc.exe non fonctionnel/
 			Avatar.runApp(__dirname + "/nircmd/nircmdc64.exe execmd start C:/Windows/System32/osk.exe", null, data.client, function(){
 				Avatar.speak(Config.modules.jarvis2.tts_action.clavierrun, data.client, function(){
@@ -178,36 +164,30 @@ exports.action = function(data, callback){
 			});
 		break;
 		case "showdesktop":  // réduit les fenetres et affiche le bureau
-			Avatar.runApp(__dirname + "/bin/minimize", null, data.client, function(){
+			Avatar.runApp(__dirname + "/nircmd/nircmdc64.exe sendkeypress lwin+D", null, data.client, function(){
 				Avatar.speak(Config.modules.jarvis2.tts_action.showdesktop, data.client, function(){
 					Avatar.Speech.end(data.client);
 				});
 			});
 		break;
 		case "restore":  // Restaure les fenetres
-			Avatar.runApp(__dirname + "/bin/restore", null, data.client, function(){
+			Avatar.runApp(__dirname + "/nircmd/nircmdc64.exe sendkeypress lwin+D", null, data.client, function(){
 				Avatar.speak(Config.modules.jarvis2.tts_action.restore, data.client, function(){
 					Avatar.Speech.end(data.client);
 				});
 			});
 		break;
 		case "global":  // touche windows+tab vue multifenetre de windows
-			Avatar.runApp(__dirname + "/bin/global", null, data.client, function(){
+			Avatar.runApp(__dirname + "/nircmd/nircmdc64.exe sendkeypress lwin+tab", null, data.client, function(){
 				Avatar.speak(Config.modules.jarvis2.tts_action.global, data.client, function(){
 					Avatar.Speech.end(data.client);
 				});
 			});
 		break;
-		case "allquit":  // ferme toutes les fenêtres/apllications ouvertes
-			Avatar.runApp(__dirname + "/nircmd/nircmdc64.exe killprocess explorer.exe", null, data.client, function(){
-				Avatar.runApp(__dirname + "/nircmd/nircmdc64.exe killprocess chrome.exe", null, data.client, function(){
-					Avatar.runApp(__dirname + "/nircmd/nircmdc64.exe killprocess notepad++.exe", null, data.client, function(){
-						Avatar.runApp(__dirname + "/nircmd/nircmdc64.exe execmd start C:/Windows/explorer.exe", null, data.client, function(){
-							Avatar.speak(Config.modules.jarvis2.tts_action.allquit, data.client, function(){
-								Avatar.Speech.end(data.client);
-							});
-						});
-					});
+		case "explorerwindow":  // ferme l'explorateur du fichier et aussi les repertoires (video/musique/image,ect....)
+			Avatar.runApp(__dirname + '/nircmd/nircmdc64.exe win close class "CabinetWClass"', null, data.client, function(){
+				Avatar.speak(Config.modules.jarvis2.tts_action.explorerwindow, data.client, function(){
+					Avatar.Speech.end(data.client);
 				});
 			});
 		break;
@@ -275,7 +255,7 @@ exports.action = function(data, callback){
 			});
 		break;
 		case "folderplugins":  // ouvre le dossier de plugin de Avatar
-			Avatar.runApp(__dirname + "/bin/folderplugins", null, data.client, function(){
+			Avatar.runApp("start C:/Avatar/Serveur/resources/core/plugins", null, data.client, function(){
 				Avatar.speak(Config.modules.jarvis2.tts_action.folderplugins, data.client, function(){
 					Avatar.Speech.end(data.client);
 				});
@@ -295,67 +275,30 @@ exports.action = function(data, callback){
 				});
 			});
 		break;
-		case "folderimage":  // ouvre le dossier "mes documents"
-			Avatar.runApp(__dirname + "/bin/folderimage", null, data.client, function(){
+		case "folderimage":  // ouvre le dossier "mes images"
+			Avatar.runApp("start C:/Users/" + Config.modules.jarvis2.nameusers + "/Pictures", null, data.client, function(){
 				Avatar.speak(Config.modules.jarvis2.tts_action.folderimage, data.client, function(){
 					Avatar.Speech.end(data.client);
 				});
 			});
 		break;
 		case "folderdownload":  // ouvre le dossier "mes téléchargements"
-			Avatar.runApp(__dirname + "/bin/folderdownload", null, data.client, function(){
+			Avatar.runApp("start C:/Avatar", null, data.client, function(){
 				Avatar.speak(Config.modules.jarvis2.tts_action.folderdownload, data.client, function(){
 					Avatar.Speech.end(data.client);
 				});
 			});
 		break;
 		case "folderdrivec":  // ouvre le Disque C
-			Avatar.runApp(__dirname + "/bin/folderdrivec", null, data.client, function(){
+			Avatar.runApp("start C:/", null, data.client, function(){
 				Avatar.speak(Config.modules.jarvis2.tts_action.folderdrivec, data.client, function(){
 					Avatar.Speech.end(data.client);
 				});
 			});
 		break;
-		case "foldernew":  // ouvre le Disque C
-			Avatar.runApp(__dirname + "/bin/foldernew", null, data.client, function(){
-				Avatar.speak(Config.modules.jarvis2.tts_action.foldernew, data.client, function(){
-					Avatar.Speech.end(data.client);
-				});
-			});
-		break;
-		case "folderrecycle":  // ouvre le Disque C
-			Avatar.runApp(__dirname + "/bin/folderrecycle", null, data.client, function(){
-				Avatar.speak(Config.modules.jarvis2.tts_action.folderrecycle, data.client, function(){
-					Avatar.Speech.end(data.client);
-				});
-			});
-		break;
-		case "ipadress":  // trouve l'adresse IP
-			Avatar.runApp(__dirname + "/bin/ipadress", null, data.client, function(){
-				Avatar.speak(Config.modules.jarvis2.tts_action.ipadress, data.client, function(){
-					Avatar.Speech.end(data.client);
-				});
-			});
-		break;
-		case "infopc":  // donne des infos sur le pc
-			Avatar.runApp(__dirname + "/bin/infopc", null, data.client, function(){
-				Avatar.speak(Config.modules.jarvis2.tts_action.infopc, data.client, function(){
-					Avatar.Speech.end(data.client);
-				});
-			});
-		break;
-		case "matrix":  // lance un écran de veille matrix
-			Avatar.runApp("C:/progra~2/Google/Chrome/Application/chrome.exe /new-window " + __dirname+"/bin/matrixcode/Matrix_Code_Rain.html", null, data.client, function(){
-				Avatar.runApp(__dirname + "/bin/fullscreen.vbs", null, data.client, function(){
-						Avatar.speak(Config.modules.jarvis2.tts_action.matrix, data.client, function(){
-							Avatar.Speech.end(data.client);
-						});
-				});
-			});
-		break;
-		case "radio":  // lance la playlist radio avec vlc
-			Avatar.runApp(__dirname + "/bin/Flux-Radio-Via-Internet.xspf", null, data.client , function(){
-				Avatar.speak(Config.modules.jarvis2.tts_action.radio, data.client, function(){
+		case "emptybin":  // vider la corbeille
+			Avatar.runApp(__dirname + "/nircmd/nircmdc64.exe emptybin", null, data.client, function(){
+				Avatar.speak(Config.modules.jarvis2.tts_action.emptybin, data.client, function(){
 					Avatar.Speech.end(data.client);
 				});
 			});
