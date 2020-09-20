@@ -1,1 +1,0 @@
-explorer \$Recycle.Bin
